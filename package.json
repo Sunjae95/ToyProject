@@ -1,0 +1,24 @@
+{
+  "name": "ToyProject",
+  "version": "1.0.0",
+  "description": "1. client 폴더에서 terminal에 `npm install` 입력\r 2. terminal에서 `npm run dev` 입력\r 3. 브라우저에 `http://localhost:3000` 입력 \r 4. 종료 시  terminal에 `Ctrl+c` 입력",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sunjae95/ToyProject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sunjae95/ToyProject/issues"
+  },
+  "homepage": "https://github.com/Sunjae95/ToyProject#readme",
+  "dependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
