@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from "react";
+import {Link, Route, Switch} from 'react-router-dom';
+import Home from "./Components/Home";
+import Login from "./Components/LoginPage/Login";
+import Mypage from "./Components/MyPage/Mypage";
+import Problem from "./Components/ProblemPage/Problem";
+import Rank from "./Components/RankPage/Rank";
 import "./App.css";
+import NavBar from "./Components/NavBar/NavBar";
 
 function App() {
-  const [data, setData] = useState("init");
-  
-  useEffect(() => {
-    fetch('http://localhost:5000/api')
-      .then(res=> res.json())
-      .then(data=> setData(data.name))
-      .catch(error => console.log('에러내용:', error));
-  });
-
   return (
-    <div className="App">
-      <h1>Hello World! {data}</h1>
+    <div className="Main">
+      <NavBar></NavBar>
+    <Switch>
+      <Route path="/login" component={Login}/>
+      <Route path="/mypage" component={Mypage}/>
+      <Route path="/problem" component={Problem}/>
+      <Route path="/rank" component={Rank}/>
+      <Route path="/" component={Home} exact/>
+    </Switch>
     </div>
   );
 }
+
 export default App;

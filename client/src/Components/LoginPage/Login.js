@@ -7,7 +7,7 @@ function Login() {
     }
     return (
         <div onClick={onClick}>
-           fdafdsfdsaf
+           로그인페이지
         </div>
     );
 }

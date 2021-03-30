@@ -7,7 +7,8 @@ module.exports = function (api) {
 
     const plugins = [
         ['@babel/plugin-transform-async-to-generator'],
-        ["@babel/plugin-transform-runtime"]
+        ["@babel/plugin-transform-runtime"],
+        ["@babel/plugin-proposal-class-properties", { "loose": true } ]
     ];
 
     return {

@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "1. client 폴더에서 terminal에 `npm install` 입력\r 2. terminal에서 `npm run dev` 입력\r 3. 브라우저에 `http://localhost:3000` 입력 \r 4. 종료 시  terminal에 `Ctrl+c` 입력",
   "main": "index.js",
-  "scripts": {  
+  "scripts": {
+    "frontend": "npm run start --prefix client",
+    "backend": "nodemon server/app.js",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "repository": {

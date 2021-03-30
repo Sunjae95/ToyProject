@@ -1,0 +1,33 @@
+body {
+    margin: 0px;
+}
+.Main{
+    height: 100vh;
+}
+
+
+.MainPageContent{
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    border-top: 2px solid black;
+    height: 100%;
+}
+.PageButton{
+    width: 15%;
+    height: 100%;
+    margin: 0px;
+    padding-left: 0px;
+    border-right: 2px solid black;
+}
+
+.PageButton li {
+    height: 50px;
+    border-bottom: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.PageContent{
+    width: 85%;
+}
