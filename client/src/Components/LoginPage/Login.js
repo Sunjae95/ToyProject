@@ -1,13 +1,22 @@
-import React from 'react'
+import React from 'react';
+import { API_ENDPOINT }from '../../utils/config';
 import './login.css';
+
 function Login() {
 
-    const onClick = () => {
-        console.log('click');
+    const onClick =  async () => {
+        const res = await fetch(API_ENDPOINT);
+        const data = await res.json();
+        const url = data.url;      
+        
+        location.href = url;
     }
+       
+ 
     return (
-        <div onClick={onClick}>
-           로그인페이지
+        <div 
+            className="LoginButton"
+            onClick={onClick}>
         </div>
     );
 }

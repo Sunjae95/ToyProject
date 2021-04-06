@@ -5,7 +5,6 @@ body {
     height: 100vh;
 }
 
-
 .MainPageContent{
     display: flex;
     flex-direction: row;

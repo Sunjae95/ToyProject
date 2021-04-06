@@ -3,9 +3,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+require('dotenv').config();
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
 
 const app = express();
@@ -20,8 +20,7 @@ app.use(cors());
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/api', loginRouter);
+app.use('/api/login', loginRouter);
 
 app.listen(5000, () => {
     console.log(`Example app listening at http://localhost:5000`)

@@ -1,11 +1,7 @@
-.loginButton {
+.LoginButton {
     width: 200px;
     height: 200px;
     background-size: contain;
     background-repeat: no-repeat;
- 
+    background-image: url(../../Images/kakaobutton.png);
 }
-/* style={{ 
-    width: "200px",
-    height: "200px",
-    background: "url(Images/kakaobutton.png)"}} */
