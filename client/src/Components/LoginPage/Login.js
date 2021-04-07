@@ -8,7 +8,6 @@ function Login() {
         const res = await fetch(API_ENDPOINT);
         const data = await res.json();
         const url = data.url;      
-        
         location.href = url;
     }
        

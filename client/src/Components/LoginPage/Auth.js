@@ -2,8 +2,9 @@ import React from 'react'
 import { API_KYE, REDIRECT_URL,KAKAO_URL} from '../../utils/config';
 
 
-function Auth() {
+function Auth(currentComponent) {
     const getToken = () => {
+        
         const code = location.search.slice(6);
         
         const bodyData = {
@@ -26,16 +27,12 @@ function Auth() {
         };
       
          fetch(KAKAO_URL, requestOptions)
-         .then(data => data.json())
-         .then(response=> console.log(response));
-    
-
+            .then(data => data.json())
+            .then(response=> console.log(response));
     }
-    
     getToken();
-
     return <>fdsfs</>
     
 }
 
-export default Auth
+export default Auth;

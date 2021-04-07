@@ -9,7 +9,6 @@ import Mypage from "./Components/MyPage/Mypage";
 import Problem from "./Components/ProblemPage/Problem";
 import Rank from "./Components/RankPage/Rank";
 
-
 function App() {
   return (
     <div className="Main">
@@ -27,12 +26,3 @@ function App() {
 
 export default App;
 
-// login 페이지 이후 구현
-// <NavBar></NavBar>
-//     <Switch>
-//       {/* <Route path="/login" component={Login}/> */}
-//       <Route path="/mypage" component={Mypage}/>
-//       <Route path="/problem" component={Problem}/>
-//       <Route path="/rank" component={Rank}/>
-//       <Route path="/" component={Home} exact/>
-//     </Switch>
