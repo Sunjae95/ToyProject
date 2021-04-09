@@ -1,10 +1,11 @@
 const fetch = require('node-fetch');
+const db = require('../db/index');
 
 const getAccessToken = async (url, bodyData) => {
     const queryStringBody = Object.keys(bodyData)
         .map(k => encodeURIComponent(k) + "=" + encodeURI(bodyData[k]))
         .join("&");
-    console.log(bodyData);
+
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -15,10 +16,9 @@ const getAccessToken = async (url, bodyData) => {
 
     const getData = await fetch(url, requestOptions);
     const postData = await getData.json();
-    console.log(postData);
 
     return postData;
-}
+};
 
 const getUser = async (accessToken) => {
     const data = await fetch('https://kapi.kakao.com/v2/user/me', {
@@ -29,9 +29,21 @@ const getUser = async (accessToken) => {
     });
     const user = await data.json();
     return user;
-}
+};
+
+const saveUser = async (id, nickname, accessToken) => {
+    await db.query('INSERT INTO users(id, nickname, accessToken) VALUES (?, ?, ?)',
+            [id, nickname, accessToken]);
+};
+
+const getJWT = (prams) => {
+
+};
+
+
 
 module.exports = {
     getAccessToken,
-    getUser
+    getUser,
+    saveUser
 };
