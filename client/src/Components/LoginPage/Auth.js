@@ -1,34 +1,22 @@
 import React from 'react'
-import { API_KYE, REDIRECT_URL,KAKAO_URL} from '../../utils/config';
+import { API_ENDPOINT } from '../../utils/config';
 
 
-function Auth(currentComponent) {
-    const getToken = () => {
-        
-        const code = location.search.slice(6);
-        
-        const bodyData = {
-            grant_type: 'authorization_code',
-            client_id: API_KYE,
-            redirect_uri: REDIRECT_URL,
-            code
-         };
-      
-         const queryStringBody = Object.keys(bodyData)
-                    .map(k=> encodeURIComponent(k)+"="+encodeURI(bodyData[k]))
-                    .join("&");
-      
-         const requestOptions = {
+function Auth() {
+    const getToken = async () => {
+        const authCode = location.search.slice(6);
+        console.log(`${API_ENDPOINT}/auth`);
+        const data = await fetch(`${API_ENDPOINT}/auth`, {
             method: 'POST',
-            headers:{
-               'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: queryStringBody
-        };
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ authCode })
+        })
+        const code = await data.json();
+        console.log(code);
+       
       
-         fetch(KAKAO_URL, requestOptions)
-            .then(data => data.json())
-            .then(response=> console.log(response));
+      
+      
     }
     getToken();
     return <>fdsfs</>
