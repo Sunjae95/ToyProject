@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getAccessToken, getUser } = require('../middleware/auth');
+const { getAccessToken, getUser } = require('../middleware/auth');
 
 router.get('/', (req, res) => {
    const loginURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REST_API_KEY}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code`;
@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
 router.post('/auth', async (req, res) => {
    const { authCode } = req.body;
-
+   // console.log(authCode);
    const bodyData = {
       grant_type: 'authorization_code',
       client_id: process.env.REST_API_KEY,
@@ -21,7 +21,7 @@ router.post('/auth', async (req, res) => {
 
    const accessToken = await getAccessToken(process.env.KAKAO_URL, bodyData);
    const user = await getUser(accessToken);
-   console.log(user);
-   res.json(accessToken);
+   
+   res.json(user);
 });
 module.exports = router;
