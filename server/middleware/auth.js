@@ -31,13 +31,24 @@ const getUser = async (accessToken) => {
     return user;
 };
 
-const saveUser = async (id, nickname, accessToken) => {
-    await db.query('INSERT INTO users(id, nickname, accessToken) VALUES (?, ?, ?)',
-            [id, nickname, accessToken]);
+ const getJWT = async (user, accessToken) => {
+    saveUser(user, accessToken);
+
 };
 
-const getJWT = (prams) => {
-
+const saveUser = async (user, accessToken) => {
+    const checkUser = await db.query('SELECT id FROM users WHERE id = ?', [user.id]);
+    if(checkUser[0].length === 0){
+        db.query('INSERT INTO users(id, nickname, accessToken) VALUES (?, ?, ?)',
+                  [user.id, user.properties.nickname, accessToken.access_token])
+                  .then(console.log('로그인삽입성공'))
+                  .catch(err => console.log('로그인삽입에러:',err));
+    } else {
+        db.query('UPDATE users SET accessToken = ? WHERE id =?',
+                  [accessToken.access_token, user.id])
+                  .then(console.log('로그인수정성공'))
+                  .catch(err=> console.log('로그인수정에러:', err));
+    }
 };
 
 
@@ -45,5 +56,6 @@ const getJWT = (prams) => {
 module.exports = {
     getAccessToken,
     getUser,
-    saveUser
+    saveUser,
+    getJWT
 };
