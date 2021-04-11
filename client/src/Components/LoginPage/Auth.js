@@ -8,12 +8,8 @@ function Auth() {
         const bodyData = {authCode};
         
         const data = await requestPOST(`${API_ENDPOINT}/auth`, bodyData);
-        // const data = await fetch(`${API_ENDPOINT}/auth`, {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ authCode })
-        // })
         const user = await data.json();
+        
         console.log(user);
         return user;
     }

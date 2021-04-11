@@ -22,7 +22,7 @@ router.post('/auth', async (req, res) => {
    const accessToken = await getAccessToken(process.env.KAKAO_URL, bodyData);
    const user = await getUser(accessToken);
 
-   getJWT(user, accessToken);
-   res.json(user);
+   const jwtToken = await getJWT(user, accessToken);
+   res.json(jwtToken);
 });
 module.exports = router;
