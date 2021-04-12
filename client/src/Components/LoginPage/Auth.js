@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { API_ENDPOINT } from '../../utils/config';
-import { requestPOST } from '../../api/index';
+import { requestGET, requestPOST } from '../../api/index';
 
-function Auth() {
+
+function Auth(props) {
     const getToken = async () => {
         const authCode = location.search.slice(6);
         const bodyData = {authCode};
@@ -10,12 +11,19 @@ function Auth() {
         const data = await requestPOST(`${API_ENDPOINT}/auth`, bodyData);
         const user = await data.json();
         
-        console.log(user);
-        return user;
+        props.cookie('id', user);   //클로저 쿠키저장
     }
     getToken();
     
-    return <></>
+
+    const check = () => {
+        const a = {token};
+        console.log(a);
+        POST(`${API_ENDPOINT}/auth/check`, a);
+    }
+    return <>
+    <button onClick={check}>fdas</button>
+    </>
     
 }
 

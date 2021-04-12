@@ -39,7 +39,11 @@ const getUser = async (accessToken) => {
 
 const saveUser = async (user, accessToken) => {
     const checkUser = await db.query('SELECT id FROM users WHERE id = ?', [user.id]);
-    const jwtToken = jwt.sign(accessToken, process.env.JWT_SECRET);
+    const jwtToken = jwt.sign({
+        id: user.id,
+        nickname: user.properties.nickname,
+        exp: Math.floor(Date.now() / 1000) + (60)
+    }, process.env.JWT_SECRET);
 
 
     if(checkUser[0].length === 0){
@@ -56,11 +60,16 @@ const saveUser = async (user, accessToken) => {
     return jwtToken;
 };
 
-
+const curUser = (token) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        console.log(decoded);
+    })
+}
 
 module.exports = {
     getAccessToken,
     getUser,
     saveUser,
-    getJWT
+    getJWT,
+    curUser
 };
