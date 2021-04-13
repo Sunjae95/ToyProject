@@ -1,30 +1,18 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { API_ENDPOINT } from '../../utils/config';
-import { requestGET, requestPOST } from '../../api/index';
+import { requestPOST } from '../../api/index';
+import { Redirect } from 'react-router';
 
 
-function Auth(props) {
-    const getToken = async () => {
+function Auth() {
         const authCode = location.search.slice(6);
         const bodyData = {authCode};
         
-        const data = await requestPOST(`${API_ENDPOINT}/auth`, bodyData);
-        const user = await data.json();
-        
-        props.cookie('id', user);   //클로저 쿠키저장
-    }
-    getToken();
-    
+        requestPOST(`${API_ENDPOINT}/auth`, bodyData)
+            .then(res=> console.log(res))
+            .catch(err=> console.log('토큰에러',err));
 
-    const check = () => {
-        const a = {token};
-        console.log(a);
-        POST(`${API_ENDPOINT}/auth/check`, a);
+        return <Redirect to='/' />
     }
-    return <>
-    <button onClick={check}>fdas</button>
-    </>
-    
-}
 
 export default Auth;

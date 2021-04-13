@@ -23,8 +23,9 @@ router.post('/auth', async (req, res) => {
    const user = await getUser(accessToken);
 
    const jwtToken = await getJWT(user, accessToken);
-   curUser(jwtToken);
-   res.json(jwtToken);
+   console.log(jwtToken);
+   res.cookie('id', jwtToken).sendStatus(200);
+   // res.json(jwtToken);
 });
 
 router.post('/auth/check', (req,res) => {
@@ -34,8 +35,8 @@ router.post('/auth/check', (req,res) => {
 });
 
 router.get('/callback', (req,res) => {
-   console.log(req.cookies);
-   return;
+   console.log(req.cookies.id);
+   res.json({login: 'success'});
 })
 
 module.exports = router;

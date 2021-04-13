@@ -8,27 +8,20 @@ import Home from "./Components/Home";
 import Mypage from "./Components/MyPage/Mypage";
 import Problem from "./Components/ProblemPage/Problem";
 import Rank from "./Components/RankPage/Rank";
-import { useCookies } from 'react-cookie';
 import PrivateRoute from "./Components/LoginPage/PrivateRoute";
 
 function App() {
-  const [cookies, setCookies] = useCookies('id');
-
   return (
     <div className="Main">
       <NavBar />
       <Switch>
-        <Route exact path='/' component={Login}/>
-        {/* <Route path='/login' component={Auth}/> */}
-        <Route path='/login' render={() => <Auth cookie={setCookies}/>}/>
-        <PrivateRoute path='/home' component={Home}/>
-        {/* <Route path='/home' component={Home}/> */}
-        <Route path='/mypage' component={Mypage}/>
-        <Route path='/problem' component={Problem}/>
-        <Route path='/rank' component={Rank}/>
+        <Route path='/login' component={Login}/>
+        <Route path='/auth' component={Auth}/>
+        <PrivateRoute path='/mypage' component={Mypage}/>
+        <PrivateRoute path='/problem' component={Problem}/>
+        <PrivateRoute path='/rank' component={Rank}/>
+        <Route exact path='/' component={Home}/>
       </Switch>
-      
-      
     </div>
   );
 }

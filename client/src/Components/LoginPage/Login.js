@@ -8,8 +8,7 @@ function Login() {
         const loginURL = await requestGET(API_ENDPOINT);
         location.href = loginURL.url;
     }
-       
- 
+
     return (
         <div 
             className="LoginButton"
