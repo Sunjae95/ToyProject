@@ -1,22 +1,40 @@
-import React from 'react'
-import { Redirect, Route } from 'react-router'
+import React, { useState, useEffect } from 'react';
+import { Redirect, Route } from 'react-router';
+import { requestGET } from '../../api';
+import { API_ENDPOINT } from '../../utils/config';
 
-function PrivateRoute({component: Component, ...current }) {
-    let cookieName;
-    if(document.cookie){
-       cookieName = document.cookie.split('; ').find(row => row.startsWith('id')).split('=')[0];
-    } else {
-        cookieName = '';
-    }
+function PrivateRoute({ component: Component, ...current }) {
+  //localstorage로
+  // true false 로
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    return (
-        <Route {...current}
-            render = { props => cookieName === 'id' 
-                ? <Component {...props} />
-                : <Redirect to='/login' />
-            }
-        />   
-    )
+  const getResponse = async () => {
+    const { check } = document.cookie
+      ? await requestGET(`${API_ENDPOINT}/logincheck`, {
+          credentials: 'include'
+        })
+      : 'no';
+
+    setIsLoggedIn(check === 'yes');
+  };
+
+  useEffect(getResponse, []);
+
+  return (
+    <Route
+      {...current}
+      render={props =>
+        isLoggedIn ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to="/login
+        "
+          />
+        )
+      }
+    />
+  );
 }
 
-export default PrivateRoute
+export default PrivateRoute;

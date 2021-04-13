@@ -32,38 +32,41 @@ const getUser = async (accessToken) => {
     return user;
 };
 
- const getJWT = async (user, accessToken) => {
-    const res = await saveUser(user, accessToken);
+const getJWT = async (user) => {
+    const res = await saveUser(user);
     return res;
-};  
+};
 
-const saveUser = async (user, accessToken) => {
+const saveUser = async (user) => {
     const checkUser = await db.query('SELECT id FROM users WHERE id = ?', [user.id]);
     const jwtToken = jwt.sign({
         id: user.id,
         nickname: user.properties.nickname,
-        exp: Math.floor(Date.now() / 1000) + (60)
+        exp: Math.floor(Date.now() / 1000) + (60 * 60)
     }, process.env.JWT_SECRET);
 
 
-    if(checkUser[0].length === 0){
+    if (checkUser[0].length === 0) {
         db.query('INSERT INTO users(id, nickname, jwt_token) VALUES (?, ?, ?)',
-                  [user.id, user.properties.nickname, jwtToken])
-                  .then(console.log('로그인삽입성공'))
-                  .catch(err => console.log('로그인삽입에러:',err));
+                [user.id, user.properties.nickname, jwtToken])
+            .then(console.log('로그인삽입성공'))
+            .catch(err => console.log('로그인삽입에러:', err));
     } else {
         db.query('UPDATE users SET jwt_token = ? WHERE id =?',
-                  [jwtToken, user.id])
-                  .then(console.log('로그인수정성공'))
-                  .catch(err=> console.log('로그인수정에러:', err));
+                [jwtToken, user.id])
+            .then(console.log('로그인수정성공'))
+            .catch(err => console.log('로그인수정에러:', err));
     }
     return jwtToken;
 };
 
+//유효검증은 나중에
 const curUser = (token) => {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-        console.log(decoded);
+    const response = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        return decoded ? 'yes' : 'no';
     })
+
+    return response;
 }
 
 module.exports = {
