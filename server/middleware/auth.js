@@ -63,8 +63,8 @@ const saveUser = async (user) => {
 //유효검증은 나중에
 const curUser = (token) => {
     const response = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-        return decoded ? 'yes' : 'no';
-    })
+        return decoded ? true : false;
+    });
 
     return response;
 }

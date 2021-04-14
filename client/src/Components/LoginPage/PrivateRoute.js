@@ -1,30 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Redirect, Route } from 'react-router';
-import { requestGET } from '../../api';
+import { requestPOST } from '../../api';
 import { API_ENDPOINT } from '../../utils/config';
 
 function PrivateRoute({ component: Component, ...current }) {
-  //localstorage로
-  // true false 로
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  let checkUser = localStorage.getItem('user') ? true : false;
 
-  const getResponse = async () => {
-    const { check } = document.cookie
-      ? await requestGET(`${API_ENDPOINT}/logincheck`, {
-          credentials: 'include'
-        })
-      : 'no';
-
-    setIsLoggedIn(check === 'yes');
-  };
-
-  useEffect(getResponse, []);
+  if (checkUser) {
+    requestPOST(`${API_ENDPOINT}/logincheck`, {
+      user: localStorage.getItem('user')
+    })
+      .then(res => res.json())
+      .then(res => (checkUser = res.check ? true : false));
+  }
 
   return (
     <Route
       {...current}
       render={props =>
-        isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />
+        localStorage.getItem('user') ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
       }
     />
   );

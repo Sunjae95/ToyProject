@@ -9,17 +9,16 @@ import Mypage from './Components/MyPage/Mypage';
 import Problem from './Components/ProblemPage/Problem';
 import Rank from './Components/RankPage/Rank';
 import PrivateRoute from './Components/LoginPage/PrivateRoute';
-import { render } from 'react-dom';
 
 function App() {
-  const [isLogged, setisLogged] = useState(false);
-
   return (
     <div className="Main">
       <NavBar />
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/auth" component={Auth} />
+        {/* <Route path="/login" render={() => <Login isLogged={isLogged}/>} />
+        <Route path="/auth" render={() => <Auth isLogged={isLogged}/>} /> */}
         <PrivateRoute path="/mypage" component={Mypage} />
         <PrivateRoute path="/problem" component={Problem} />
         <PrivateRoute path="/rank" component={Rank} />
