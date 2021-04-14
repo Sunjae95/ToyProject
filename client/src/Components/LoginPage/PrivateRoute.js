@@ -24,14 +24,7 @@ function PrivateRoute({ component: Component, ...current }) {
     <Route
       {...current}
       render={props =>
-        isLoggedIn ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to="/login
-        "
-          />
-        )
+        isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );
