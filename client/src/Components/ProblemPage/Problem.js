@@ -1,13 +1,22 @@
-import React from "react";
-
+import React from 'react';
+import { Link, Route, Switch } from 'react-router-dom';
+import CreateProblem from './CreateProblem';
+import SelectProblem from './SelectProblem';
 function Problem() {
   return (
     <div className="MainPageContent">
       <ul className="PageButton">
-        <li>문제뽑기</li>
-        <li>문제조회</li>
+        <Link to="/problem">
+          <li>문제뽑기</li>
+        </Link>
+        <Link to="/problem/select">
+          <li>문제조회</li>
+        </Link>
       </ul>
-      <div>문제칸 컴포넌트</div>
+      <Switch>
+        <Route path="/problem/select" component={SelectProblem} />
+        <Route exact path="/problem" component={CreateProblem} />
+      </Switch>
     </div>
   );
 }

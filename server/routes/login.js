@@ -33,6 +33,7 @@ router.post("/auth", async (req, res) => {
 
 router.post("/logincheck", async (req, res) => {
   const check = await curUser(req.body.user);
+  console.log(check);
   res.json({ check });
 });
 

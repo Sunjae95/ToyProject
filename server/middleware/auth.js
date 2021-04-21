@@ -42,7 +42,7 @@ const saveUser = async (user) => {
     const jwtToken = jwt.sign({
         id: user.id,
         nickname: user.properties.nickname,
-        exp: Math.floor(Date.now() / 1000) + (60 * 60)
+        exp: Math.floor(Date.now() / 1000) + (30)
     }, process.env.JWT_SECRET);
 
 
@@ -63,7 +63,8 @@ const saveUser = async (user) => {
 //유효검증은 나중에
 const curUser = (token) => {
     const response = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-        return decoded ? true : false;
+        console.log(decoded);
+        return decoded === undefined ? false : true;
     });
 
     return response;
