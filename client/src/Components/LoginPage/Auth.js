@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { API_ENDPOINT } from '../../utils/config';
 import { requestPOST } from '../../api/index';
 import { Redirect } from 'react-router';
@@ -9,8 +9,7 @@ function Auth() {
   requestPOST(`${API_ENDPOINT}/auth`, bodyData)
     .then(res => res.json())
     .then(res => {
-      console.log(res);
-      localStorage.setItem('user', res.user)
+      localStorage.setItem('user', res.user);
     });
 
   return <Redirect to="/" />;
