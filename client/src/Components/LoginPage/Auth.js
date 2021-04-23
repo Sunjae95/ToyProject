@@ -6,7 +6,7 @@ import { Redirect } from 'react-router';
 function Auth() {
   const authCode = location.search.slice(6);
   const bodyData = { authCode };
-  requestPOST(`${API_ENDPOINT}/auth`, bodyData)
+  requestPOST(`${API_ENDPOINT}/login/auth`, bodyData)
     .then(res => res.json())
     .then(res => {
       localStorage.setItem('user', res.user);

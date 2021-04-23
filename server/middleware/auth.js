@@ -80,10 +80,23 @@ const curUser = (token) => {
   return response;
 };
 
+const getAccessTokenFromDB = async (id) => {
+  const accessToken = await db.query('SELECT access_token FROM users WHERE id = ?', [id])
+  return accessToken;
+}
+
+const modifyNickname = (id, nickname) => {
+  db.query('UPDATE users SET nickname = ? WHERE id =?', [nickname, id])
+    .then(console.log('user수정성공'))
+    .catch(err => console.log('user수정에러: ',err));
+}
+
 module.exports = {
   getAccessToken,
   getUser,
   saveUser,
   getJWT,
   curUser,
+  getAccessTokenFromDB,
+  modifyNickname
 };

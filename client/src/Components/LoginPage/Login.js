@@ -7,7 +7,7 @@ function Login() {
   const [url, setUrl] = useState(null);
 
   useEffect(async () => {
-    const loginURL = await requestGET(API_ENDPOINT);
+    const loginURL = await requestGET(`${API_ENDPOINT}/login`);
     setUrl(loginURL.url);
   }, []);
 
