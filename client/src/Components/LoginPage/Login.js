@@ -15,7 +15,12 @@ function Login() {
     location.href = url;
   };
 
-  return <div className="LoginButton" onClick={onClick}></div>;
+  return (
+    <div className="LoginContent">
+      <h1>서비스를 이용하려면 로그인이 필요합니다.</h1>
+      <div className="LoginButton" onClick={onClick}></div>
+    </div>
+  );
 }
 
 export default Login;

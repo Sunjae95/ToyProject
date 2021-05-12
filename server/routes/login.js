@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   getAccessToken,
-  getUser,
+  getIdFromKakao,
   getJWT,
   curUser,
 } = require("../middleware/auth");
@@ -25,15 +25,11 @@ router.post("/auth", async (req, res) => {
   };
 
   const accessToken = await getAccessToken(process.env.KAKAO_URL, bodyData);
-  const user = await getUser(accessToken);
-  const jwtToken = await getJWT(user, accessToken);
+  const id = await getIdFromKakao(accessToken);
+  //user를 받으면 id 찾기 없으면 유저 저장
+  const jwtToken = await getJWT(id, accessToken);
 
   res.json({ user: jwtToken });
-});
-
-router.post("/logincheck", async (req, res) => {
-  const check = await curUser(req.body.user);
-  res.json({ check });
 });
 
 module.exports = router;

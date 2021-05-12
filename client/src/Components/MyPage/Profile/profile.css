@@ -1,0 +1,68 @@
+/* 프로필 */
+.profile {
+    width: 600px;
+    height: 500px;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.profile-form{
+    margin-top: 120px;
+    display: flex;
+    flex-direction: column;
+}
+/* 각 항목 */
+.form-group {
+    display: flex;
+    margin-left: 30px;
+    margin-bottom: 25px;
+}
+/* 항목별 제목 */
+.form-group-text{
+    width: 100px;
+}
+.form-group-container{
+    display: flex;
+}
+/* 수정 창 */
+.profile-input {
+    padding-bottom: 5px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid black;
+}
+.profile-input:focus{
+    outline: none;
+}
+/* 체크박스 */
+.checkbox-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 50px ;
+}
+
+/* 수정버튼 */
+.profile-modify {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile-modify button{
+    border-radius: 15px;
+    border: none;
+    width: 250px;
+    height: 40px;
+    cursor: pointer;
+    background: #A9D0F5;
+    color: white;
+}
+.profile-modify button:hover{
+    background: #81BEF7;
+}
+.profile-modify button:active{
+    background: #58ACFA;
+}

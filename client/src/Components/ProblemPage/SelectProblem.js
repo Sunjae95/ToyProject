@@ -1,7 +1,7 @@
 import React from 'react';
 
 function SelectProblem() {
-  return <div>문제조회</div>;
+  return <>문제조회</>;
 }
 
 export default SelectProblem;

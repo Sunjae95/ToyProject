@@ -20,8 +20,9 @@ const getAccessToken = async (url, bodyData) => {
 
   return postData;
 };
-
-const getUser = async (accessToken) => {
+//accessToken을 이용하여 user정보를 가져옴
+//이 프로젝트에서는 id만 필요하기에 id만 받아 올것..!
+const getIdFromKakao = async (accessToken) => {
   const data = await fetch("https://kapi.kakao.com/v2/user/me", {
     method: "GET",
     headers: {
@@ -29,74 +30,89 @@ const getUser = async (accessToken) => {
     },
   });
   const user = await data.json();
-  return user;
+  return user.id;
 };
 
-const getJWT = async (user, access_token) => {
-  const res = await saveUser(user, access_token);
-  return res;
-};
+//kakao에서 id 받기
+//DB에서 id 있는지 확인후 있으면 id와 함께jwt토큰만들기 / 없으면 db생성후 jwt토큰만들기
+//jwt토큰 프론트로 넘겨주기
 
-const saveUser = async (user, access_token) => {
-  const checkUser = await db.query("SELECT id FROM users WHERE id = ?", [
-    user.id,
-  ]);
-
+const getJWT = async (id, access_token) => {
+  saveUser(id, access_token);
   const jwtToken = jwt.sign(
     {
-      id: user.id,
-      nickname: user.properties.nickname,
+      id: id,
       exp: Math.floor(Date.now() / 1000) + 60 * 60,
     },
     process.env.JWT_SECRET
   );
+  return jwtToken;
+};
+
+//id입력후 아이디가 있다면 accessToken만 저장 없다면 id와 accessToken저장
+const saveUser = async (id, access_token) => {
+  const checkUser = await db.query("SELECT id FROM users WHERE id = ?", [id]);
 
   if (checkUser[0].length === 0) {
-    db.query(
-      "INSERT INTO users(id, nickname, jwt_token, access_token) VALUES (?, ?, ?, ?)",
-      [user.id, user.properties.nickname, jwtToken, access_token.access_token]
-    )
+    db.query("INSERT INTO users(id, access_token) VALUES (?, ?)", [
+      id,
+      access_token.access_token,
+    ])
       .then(console.log("로그인삽입성공"))
       .catch((err) => console.log("로그인삽입에러:", err));
   } else {
-    db.query("UPDATE users SET (jwt_token = ?, access_token=? )WHERE id =?", [
-      jwtToken,
+    db.query("UPDATE users SET access_token = ?  WHERE id = ?", [
       access_token.access_token,
-      user.id,
+      id,
     ])
       .then(console.log("로그인수정성공"))
       .catch((err) => console.log("로그인수정에러:", err));
   }
-  return jwtToken;
 };
 
-//유효검증은 나중에
-const curUser = (token) => {
-  const response = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    console.log(decoded);
-    return decoded === undefined ? false : true;
-  });
+//jwt토큰 인증하고 id를 통해 현재 유저 정보 불러오기(id, nickname)
+const curUser = async (token) => {
+  const jwtAuth = await jwt.verify(token, process.env.JWT_SECRET);
+  const id = jwtAuth.id;
+  const response = await db.query(
+    "SELECT id, nickname, age, gender FROM users WHERE id = ?",
+    [id]
+  );
 
-  return response;
+  return response[0][0];
 };
 
 const getAccessTokenFromDB = async (id) => {
-  const accessToken = await db.query('SELECT access_token FROM users WHERE id = ?', [id])
+  const accessToken = await db.query(
+    "SELECT access_token FROM users WHERE id = ?",
+    [id]
+  );
   return accessToken;
-}
+};
 
-const modifyNickname = (id, nickname) => {
-  db.query('UPDATE users SET nickname = ? WHERE id =?', [nickname, id])
-    .then(console.log('user수정성공'))
-    .catch(err => console.log('user수정에러: ',err));
-}
+const modifyNickname = async (id, nickname, age, gender) => {
+  //  데이터 조회
+  // db.query('UPDATE users SET nickname = ? WHERE id =?', [nickname, id])
+  //   .then(console.log('user수정성공'))
+  //   .catch(err=> console.log('user 수정실패'));
+  try {
+    const res = await db.query(
+      "UPDATE users SET nickname = ?, age= ?, gender = ?  WHERE id =?",
+      [nickname, age, gender, id]
+    );
+    return res;
+  } catch (e) {
+   
+    return false;
+  }
+};
 
 module.exports = {
   getAccessToken,
-  getUser,
+  getIdFromKakao,
   saveUser,
   getJWT,
   curUser,
   getAccessTokenFromDB,
-  modifyNickname
+  modifyNickname,
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { API_ENDPOINT } from '../../utils/config';
 import { requestPOST } from '../../api/index';
 import { Redirect } from 'react-router';

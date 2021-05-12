@@ -1,10 +1,10 @@
-import React, {} from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from './Components/LoginPage/Login';
 import NavBar from './Components/NavBar/NavBar';
 import Auth from './Components/LoginPage/Auth';
 import './App.css';
-import Home from './Components/Home';
+import Home from './Components/HomePage/Home';
 import Mypage from './Components/MyPage/Mypage';
 import Problem from './Components/ProblemPage/Problem';
 import Rank from './Components/RankPage/Rank';
@@ -14,16 +14,16 @@ function App() {
   return (
     <div className="Main">
       <NavBar />
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/auth" component={Auth} />
-        {/* <Route path="/login" render={() => <Login isLogged={isLogged}/>} />
-        <Route path="/auth" render={() => <Auth isLogged={isLogged}/>} /> */}
-        <PrivateRoute path="/mypage" component={Mypage} />
-        <PrivateRoute path="/problem" component={Problem} />
-        <PrivateRoute path="/rank" component={Rank} />
-        <Route exact path="/" component={Home} />
-      </Switch>
+      <div className="MainPageContent">
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/auth" component={Auth} />
+          <PrivateRoute path="/mypage" component={Mypage} />
+          <PrivateRoute path="/problem" component={Problem} />
+          <PrivateRoute path="/rank" component={Rank} />
+          <Route exact path="/" component={Home} />
+        </Switch>
+      </div>
     </div>
   );
 }

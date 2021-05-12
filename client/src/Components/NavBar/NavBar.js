@@ -8,7 +8,7 @@ function NavBar() {
       <ul className="NavBarMenu">
         <li>
           <Link className="link" to="/">
-            홈
+            BSolve
           </Link>
         </li>
         <li>

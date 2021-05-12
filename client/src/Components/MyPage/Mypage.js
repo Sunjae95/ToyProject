@@ -2,59 +2,81 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { requestPOST } from '../../api/index';
 import './Mypage.css';
-import Profile from './Profile';
+import Profile from './Profile/Profile';
 import { API_ENDPOINT } from '../../utils/config';
+
+const initailState = {
+  id: '',
+  nickname: '',
+  age: 0,
+  gender: true
+};
+
 function Mypage() {
-  const [profile, setProfile] = useState({
-    id: '',
-    nickname: ''
-  });
+  const [profile, setProfile] = useState(initailState);
 
-  
-  //데이터 불러오기
+  //유저 데이터 불러오기
   useEffect(async () => {
-    const data = await requestPOST(`${API_ENDPOINT}/user`, {
-      user: localStorage.getItem('user')
-    });
-    const user = await data.json();
-    const { id, nickname } = user;
+    try {
+      //성공시 유저 정보 profile에 저장
+      const data = await requestPOST(`${API_ENDPOINT}/user`, {
+        user: localStorage.getItem('user')
+      });
+      const user = await data.json();
+      const { id, nickname, age, gender } = user;
 
-    setProfile({ id, nickname });
+      setProfile({ id, nickname, age, gender });
+    } catch (e) {
+      //다시 로그인페이지 보여주기 (미구현)
+      setProfile(initailState);
+    }
   }, []);
 
   const onLogout = () => {
+    setProfile(initailState);
     localStorage.removeItem('user');
   };
-  
   //수정될때 상태 바꿔주기
+  //닉네임, 나이에 따라 변형
   const onChange = e => {
-    const { name, value } = e.target;
     setProfile({
       ...profile,
-      [name]: value
+      [e.target.name]:
+        e.target.name === 'age' ? parseInt(e.target.value) : e.target.value
     });
+  };
+  //성별체크하기
+  const checkedBox = () => {
+    setProfile({ ...profile, gender: !profile.gender });
   };
 
   //데이터 수정하기
   const onSave = () => {
-    console.log(profile);
     requestPOST('http://localhost:5000/api/user/modify', {
       id: profile.id,
-      nickname: profile.nickname
-    });
-    console.log('저장');
+      nickname: profile.nickname,
+      age: profile.age,
+      gender: profile.gender
+    }).catch(e => console.log(e));
   };
 
   return (
-    <div className="MainPageContent">
+    <>
       <ul className="PageButton">
         <li>프로필</li>
-        <Link to="/">
+        <Link className="Link" to="/">
           <li onClick={onLogout}>로그아웃</li>
         </Link>
       </ul>
-      <Profile profile={profile} onSave={onSave} onChange={onChange}></Profile>
-    </div>
+      <div className="PageContent">
+        <Profile
+          profile={profile}
+          onSave={onSave}
+          onChange={onChange}
+          checkedBox={checkedBox}
+        ></Profile>
+      </div>
+    </>
   );
 }
 

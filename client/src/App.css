@@ -1,6 +1,12 @@
 body {
     margin: 0px;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 .Main{
     height: 100vh;
 }
@@ -9,24 +15,40 @@ body {
     display: flex;
     flex-direction: row;
     margin: 0px;
-    border-top: 2px solid black;
-    height: 100%;
+    border-top: 1px solid #BDBDBD;
+    box-sizing: border-box;
+    height: 85%;
 }
 .PageButton{
     width: 15%;
     height: 100%;
     margin: 0px;
     padding-left: 0px;
-    border-right: 2px solid black;
+    border-right: 1px solid #BDBDBD;
 }
-
 .PageButton li {
     height: 50px;
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid #BDBDBD;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
 }
+.PageButton li:hover{
+    transition: all 0.5s;
+    color: #A9D0F5;
+}
+.Link {
+    text-decoration: none;
+}
+
 .PageContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 85%;
+    height: 100%;
 }
