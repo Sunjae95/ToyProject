@@ -2,7 +2,7 @@ import React from 'react';
 import Checkbox from '../Checkbox/Checkbox';
 import './profile.css';
 
-function Profile({ profile, onSave, onChange, checkedBox }) {
+function Profile({ profile, clickedModify, onChange, checkedBox }) {
   return (
     <div className="profile">
       <div className="profile-form">
@@ -36,9 +36,9 @@ function Profile({ profile, onSave, onChange, checkedBox }) {
         <div className="form-group">
           <Checkbox profile={profile} checkedBox={checkedBox} />
         </div>
-        <div className="profile-modify">
-          <button onClick={onSave}>수정</button>
-        </div>
+        <button className="profile-modify button-style" onClick={clickedModify}>
+          수정
+        </button>
       </div>
     </div>
   );

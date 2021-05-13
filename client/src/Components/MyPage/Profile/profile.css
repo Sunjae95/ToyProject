@@ -46,23 +46,8 @@
 
 /* 수정버튼 */
 .profile-modify {
-    margin-top: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.profile-modify button{
+    margin: 80px auto;
     border-radius: 15px;
-    border: none;
     width: 250px;
     height: 40px;
-    cursor: pointer;
-    background: #A9D0F5;
-    color: white;
-}
-.profile-modify button:hover{
-    background: #81BEF7;
-}
-.profile-modify button:active{
-    background: #58ACFA;
 }

@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { requestPOST } from '../../api/index';
-import './Mypage.css';
 import Profile from './Profile/Profile';
 import { API_ENDPOINT } from '../../utils/config';
-
-const initailState = {
-  id: '',
-  nickname: '',
-  age: 0,
-  gender: true
-};
+import Modal from '../Modal/Modal';
 
 function Mypage() {
-  const [profile, setProfile] = useState(initailState);
+  const [profile, setProfile] = useState(false);
+  const [modal, setModal] = useState(false);
 
   //유저 데이터 불러오기
   useEffect(async () => {
@@ -28,12 +22,12 @@ function Mypage() {
       setProfile({ id, nickname, age, gender });
     } catch (e) {
       //다시 로그인페이지 보여주기 (미구현)
-      setProfile(initailState);
+      setProfile(false);
     }
   }, []);
 
   const onLogout = () => {
-    setProfile(initailState);
+    setProfile(false);
     localStorage.removeItem('user');
   };
   //수정될때 상태 바꿔주기
@@ -58,6 +52,11 @@ function Mypage() {
       age: profile.age,
       gender: profile.gender
     }).catch(e => console.log(e));
+    setModal(!modal);
+  };
+  //모달창 열고 닫기
+  const clickedModify = () => {
+    setModal(!modal);
   };
 
   return (
@@ -69,12 +68,17 @@ function Mypage() {
         </Link>
       </ul>
       <div className="PageContent">
-        <Profile
-          profile={profile}
-          onSave={onSave}
-          onChange={onChange}
-          checkedBox={checkedBox}
-        ></Profile>
+        {modal && <Modal clickedModify={clickedModify} onSave={onSave} />}
+        {profile ? (
+          <Profile
+            profile={profile}
+            clickedModify={clickedModify}
+            onChange={onChange}
+            checkedBox={checkedBox}
+          ></Profile>
+        ) : (
+          <div>불러오는중</div>
+        )}
       </div>
     </>
   );

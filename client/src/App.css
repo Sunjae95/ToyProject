@@ -43,7 +43,6 @@ input::-webkit-inner-spin-button {
 .Link {
     text-decoration: none;
 }
-
 .PageContent{
     display: flex;
     flex-direction: column;
@@ -51,4 +50,31 @@ input::-webkit-inner-spin-button {
     align-items: center;
     width: 85%;
     height: 100%;
+}
+/* 버튼 스타일 */
+.button-style{
+    border: none;
+    cursor: pointer;
+    background: #81BEF7;
+    color: white;
+}
+.button-style:hover{
+    background: #A9D0F5;
+}
+.button-style:active{
+    background: #58ACFA;
+}
+
+.button-style-no{
+    border: none;
+    cursor: pointer;
+    background: #A4A4A4;
+    color: white;
+}
+
+.button-style-no:hover{
+    background: #BDBDBD;
+}
+.button-style-no:active{
+    background: #848484;
 }
