@@ -58,9 +58,22 @@ function Mypage() {
   const clickedModify = () => {
     setModal(!modal);
   };
+  const closeModify = e => {
+    if (e.target.className === 'modal-page') {
+      setModal(!modal);
+    }
+  };
 
   return (
     <>
+      {modal && (
+        <Modal
+          clickedModify={clickedModify}
+          onSave={onSave}
+          message="수정하시겠습니까?"
+          closeModify={closeModify}
+        />
+      )}
       <ul className="PageButton">
         <li>프로필</li>
         <Link className="Link" to="/">
@@ -68,7 +81,6 @@ function Mypage() {
         </Link>
       </ul>
       <div className="PageContent">
-        {modal && <Modal clickedModify={clickedModify} onSave={onSave} />}
         {profile ? (
           <Profile
             profile={profile}
