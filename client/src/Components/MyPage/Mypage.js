@@ -8,6 +8,7 @@ import Modal from '../Modal/Modal';
 function Mypage() {
   const [profile, setProfile] = useState(false);
   const [modal, setModal] = useState(false);
+  const [modalCheck, setModalCheck] = useState(true);
 
   //유저 데이터 불러오기
   useEffect(async () => {
@@ -26,10 +27,6 @@ function Mypage() {
     }
   }, []);
 
-  const onLogout = () => {
-    setProfile(false);
-    localStorage.removeItem('user');
-  };
   //수정될때 상태 바꿔주기
   //닉네임, 나이에 따라 변형
   const onChange = e => {
@@ -54,31 +51,55 @@ function Mypage() {
     }).catch(e => console.log(e));
     setModal(!modal);
   };
+
   //모달창 열고 닫기
   const clickedModify = () => {
     setModal(!modal);
+    setModalCheck(true);
   };
+
   const closeModify = e => {
     if (e.target.className === 'modal-page') {
       setModal(!modal);
     }
   };
 
+  const onLogout = () => {
+    setProfile(false);
+    setModal(!modal);
+    localStorage.removeItem('user');
+  };
+
+  const clickedLogout = () => {
+    setModal(!modal);
+    setModalCheck(false);
+  };
+
   return (
     <>
-      {modal && (
-        <Modal
-          clickedModify={clickedModify}
-          onSave={onSave}
-          message="수정하시겠습니까?"
-          closeModify={closeModify}
-        />
-      )}
+      {modal &&
+        (modalCheck ? (
+          <Modal
+            modalCheck={modalCheck}
+            clickedModify={clickedModify}
+            onSave={onSave}
+            message="수정하시겠습니까?"
+            closeModify={closeModify}
+          />
+        ) : (
+          <Modal
+            modalCheck={modalCheck}
+            clickedModify={clickedModify}
+            onSave={onLogout}
+            message="로그아웃 하시겠습니까?"
+            closeModify={closeModify}
+          />
+        ))}
       <ul className="PageButton">
         <li>프로필</li>
-        <Link className="Link" to="/">
-          <li onClick={onLogout}>로그아웃</li>
-        </Link>
+        {/* <Link className="Link" to="/"> */}
+        <li onClick={clickedLogout}>로그아웃</li>
+        {/* </Link> */}
       </ul>
       <div className="PageContent">
         {profile ? (
