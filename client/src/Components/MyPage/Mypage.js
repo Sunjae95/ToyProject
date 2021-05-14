@@ -57,19 +57,19 @@ function Mypage() {
     setModal(!modal);
     setModalCheck(true);
   };
-
+  //모달 흰색창 제외 클릭시 사라짐
   const closeModify = e => {
     if (e.target.className === 'modal-page') {
       setModal(!modal);
     }
   };
-
+  //클릭시 로그아웃
   const onLogout = () => {
     setProfile(false);
     setModal(!modal);
     localStorage.removeItem('user');
   };
-
+  //로그아웃 칸 누를때 모달창 띄우기
   const clickedLogout = () => {
     setModal(!modal);
     setModalCheck(false);
