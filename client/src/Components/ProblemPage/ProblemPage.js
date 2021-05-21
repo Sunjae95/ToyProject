@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
-import CreateProblem from './CreateProblem';
+import CreateProblem from './CreateProblem/CreateProblem';
 import SelectProblem from './SelectProblem';
-function Problem() {
+function ProblemPage() {
   return (
     <>
       <ul className="PageButton">
@@ -23,4 +23,4 @@ function Problem() {
   );
 }
 
-export default Problem;
+export default ProblemPage;
