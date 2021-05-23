@@ -1,6 +1,6 @@
 import React from 'react';
-import { API_ENDPOINT } from '../../utils/config';
-import { requestPOST } from '../../api/index';
+import { API_ENDPOINT } from 'Utility/config';
+import { requestPOST } from 'Api/index';
 import { Redirect } from 'react-router';
 
 function Auth() {
@@ -16,3 +16,4 @@ function Auth() {
 }
 
 export default Auth;
+

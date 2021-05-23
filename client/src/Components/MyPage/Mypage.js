@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { requestPOST } from '../../api/index';
+import { requestPOST } from 'Api/index';
 import Profile from './Profile/Profile';
-import { API_ENDPOINT } from '../../utils/config';
+import { API_ENDPOINT } from 'Utility/config';
 import Modal from '../Modal/Modal';
 
 function Mypage() {

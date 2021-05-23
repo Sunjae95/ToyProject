@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { requestGET } from '../../../api';
-import { API_ENDPOINT } from '../../../utils/config';
+import { requestGET } from 'Api/index';
+import { API_ENDPOINT } from 'Utility/config';
 import ProblemList from './ProblemList/ProblemList';
 function CreateProblem() {
   const [problems, setProblems] = useState(null);

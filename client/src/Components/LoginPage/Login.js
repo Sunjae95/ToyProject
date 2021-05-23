@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { API_ENDPOINT } from '../../utils/config';
+import { API_ENDPOINT } from 'Utility/config';
 import './login.css';
-import { requestGET } from '../../api/index';
+import { requestGET } from 'Api/index';
 
 function Login() {
   const [url, setUrl] = useState(null);
