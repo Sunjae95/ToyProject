@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Home() {
+function HomePage() {
   return (
     <>
       <ul className="PageButton">
@@ -13,4 +13,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

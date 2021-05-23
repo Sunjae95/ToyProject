@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { API_ENDPOINT } from 'Utility/config';
-import './login.css';
 import { requestGET } from 'Api/index';
+import './login.css';
 
-function Login() {
+function LoginPage() {
   const [url, setUrl] = useState(null);
 
   useEffect(async () => {
@@ -23,4 +23,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './modal.css';
+
 function Modal({ modalCheck, clickedModify, onSave, message, closeModify }) {
   return (
     <div className="modal-page" onClick={closeModify}>

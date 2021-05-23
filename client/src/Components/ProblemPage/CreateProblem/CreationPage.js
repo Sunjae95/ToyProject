@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { requestGET } from 'Api/index';
 import { API_ENDPOINT } from 'Utility/config';
 import ProblemList from './ProblemList/ProblemList';
-function CreateProblem() {
+function CreationPage() {
   const [problems, setProblems] = useState(null);
 
   const getProblems = async () => {
@@ -21,4 +21,4 @@ function CreateProblem() {
   );
 }
 
-export default CreateProblem;
+export default CreationPage;

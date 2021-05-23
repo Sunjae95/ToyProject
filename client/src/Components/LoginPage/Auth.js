@@ -1,7 +1,7 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import { API_ENDPOINT } from 'Utility/config';
 import { requestPOST } from 'Api/index';
-import { Redirect } from 'react-router';
 
 function Auth() {
   const authCode = location.search.slice(6);

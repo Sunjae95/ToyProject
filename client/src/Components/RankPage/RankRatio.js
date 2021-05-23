@@ -1,7 +1,7 @@
 import React from 'react';
 
-function RankRatio() {
+function RankRatioPage() {
   return <>정답비율 보여주기</>;
 }
 
-export default RankRatio;
+export default RankRatioPage;

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
-import CreateProblem from './CreateProblem/CreateProblem';
-import SelectProblem from './SelectProblem';
+import SelectionPage from './SelectionPage';
+import CreationPage from './CreateProblem/CreationPage';
+
 function ProblemPage() {
   return (
     <>
@@ -15,8 +16,8 @@ function ProblemPage() {
       </ul>
       <div className="PageContent">
         <Switch>
-          <Route path="/problem/select" component={SelectProblem} />
-          <Route exact path="/problem" component={CreateProblem} />
+          <Route path="/problem/select" component={SelectionPage} />
+          <Route exact path="/problem" component={CreationPage} />
         </Switch>
       </div>
     </>
