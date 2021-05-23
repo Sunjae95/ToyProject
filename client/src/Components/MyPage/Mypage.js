@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { API_ENDPOINT } from 'Utility/config';
 import { requestPOST } from 'Api/index';
+
 import Modal from '../Modal/Modal';
 import Profile from './Profile/Profile';
-
 function Mypage() {
   const [profile, setProfile] = useState(false);
   const [modal, setModal] = useState(false);
@@ -115,5 +115,6 @@ function Mypage() {
     </>
   );
 }
+
 
 export default Mypage;

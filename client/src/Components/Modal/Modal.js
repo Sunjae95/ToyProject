@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './modal.css';
 
 function Modal({ modalCheck, clickedModify, onSave, message, closeModify }) {
@@ -38,5 +39,13 @@ function Modal({ modalCheck, clickedModify, onSave, message, closeModify }) {
     </div>
   );
 }
+
+Modal.propTypes = {
+  modalCheck: PropTypes.bool,
+  clickedModify: PropTypes.func,
+  onSave: PropTypes.func,
+  message: PropTypes.string,
+  closeModify: PropTypes.func
+};
 
 export default Modal;

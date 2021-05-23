@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Problem({ no, grade, title }) {
   return (
@@ -34,4 +35,13 @@ function ProblemList({ problems }) {
   );
 }
 
+Problem.propTypes = {
+  no: PropTypes.number,
+  grade: PropTypes.string,
+  title: PropTypes.string
+};
+
+ProblemList.propTypes = {
+  problems: PropTypes.array
+};
 export default ProblemList;
