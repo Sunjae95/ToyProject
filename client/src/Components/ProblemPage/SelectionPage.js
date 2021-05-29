@@ -1,7 +1,7 @@
 import React from 'react';
 
-function SelectProblem() {
+function SelectionPage() {
   return <>문제조회</>;
 }
 
-export default SelectProblem;
+export default SelectionPage;

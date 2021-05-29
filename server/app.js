@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const loginRouter = require("./routes/login");
 const userRouter = require("./routes/user");
+const problemRouter = require("./routes/problem");
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(
 
 app.use("/api/login", loginRouter);
 app.use("/api/user", userRouter);
+app.use("/api/problem", problemRouter);
 
 app.listen(5000, () => {
   console.log(`Example app listening at http://localhost:5000`);

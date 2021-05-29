@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { BiCheckCircle } from 'react-icons/bi';
+
 function Checkbox({ profile, checkedBox }) {
   return (
     <>
@@ -25,5 +27,10 @@ function Checkbox({ profile, checkedBox }) {
     </>
   );
 }
+
+Checkbox.propTypes = {
+  profile: PropTypes.object,
+  checkedBox: PropTypes.func
+};
 
 export default Checkbox;

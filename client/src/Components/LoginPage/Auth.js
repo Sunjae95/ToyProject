@@ -1,7 +1,7 @@
 import React from 'react';
-import { API_ENDPOINT } from '../../utils/config';
-import { requestPOST } from '../../api/index';
 import { Redirect } from 'react-router';
+import { API_ENDPOINT } from 'Utility/config';
+import { requestPOST } from 'Api/index';
 
 function Auth() {
   const authCode = location.search.slice(6);
@@ -16,3 +16,4 @@ function Auth() {
 }
 
 export default Auth;
+

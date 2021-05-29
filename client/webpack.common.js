@@ -9,6 +9,12 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js'
     },
+    resolve:{
+        alias:{
+            Api: path.resolve(__dirname, 'src/api/'),
+            Utility: path.resolve(__dirname, 'src/utils/')
+        }
+    },
     module:{
         rules: [
             {

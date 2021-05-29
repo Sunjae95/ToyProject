@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
-import RankRatio from './RankRatio';
-import RankSolve from './RankSolve';
-function Rank() {
+import RankSolvePage from './RankSolvePage';
+import RankRatioPage from './RankRatio';
+
+function RankingPage() {
   return (
     <>
       <ul className="PageButton">
@@ -15,12 +16,12 @@ function Rank() {
       </ul>
       <div className="PageContent">
         <Switch>
-          <Route exact path="/rank" component={RankSolve} />
-          <Route path="/rank/ratio" component={RankRatio} />
+          <Route exact path="/rank" component={RankSolvePage} />
+          <Route path="/rank/ratio" component={RankRatioPage} />
         </Switch>
       </div>
     </>
   );
 }
 
-export default Rank;
+export default RankingPage;

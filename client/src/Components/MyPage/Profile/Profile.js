@@ -1,5 +1,6 @@
 import React from 'react';
 import Checkbox from '../Checkbox/Checkbox';
+import PropTypes from 'prop-types';
 import './profile.css';
 
 function Profile({ profile, clickedModify, onChange, checkedBox }) {
@@ -43,5 +44,12 @@ function Profile({ profile, clickedModify, onChange, checkedBox }) {
     </div>
   );
 }
+
+Profile.propTypes = {
+  profile: PropTypes.object,
+  clickedModify: PropTypes.func,
+  onChange: PropTypes.func,
+  checkedBox: PropTypes.func
+};
 
 export default Profile;
