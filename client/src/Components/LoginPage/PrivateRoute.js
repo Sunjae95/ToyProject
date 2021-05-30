@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Redirect, Route } from 'react-router';
+import { isLoggedContext } from '../../Context';
 
 function PrivateRoute({ component: Component, ...rest }) {
   const checkUser = localStorage.getItem('user') ? true : false;
+  const {
+    state: { isLogged }
+  } = useContext(isLoggedContext);
+  console.log(isLogged);
 
   return (
     <Route
       {...rest}
       render={props =>
-        checkUser ? <Component {...props} /> : <Redirect to="/login" />
+        isLogged ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );
