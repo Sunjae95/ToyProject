@@ -5,16 +5,20 @@ const router = express.Router();
 
 //사용자 정보 불러오기
 router.post("/", async (req, res) => {
-  console.log(req.body.user);
+  console.log("유저 로그인 되어있는지 토큰보내기", req.body.user);
   //jwt 인증
-  const jwtAuth = await curUser(req.body.user, process.env.JWT_SECRET);
-  const { id, nickname, age, gender } = jwtAuth;
-  res.json({
-    id,
-    nickname,
-    age,
-    gender,
-  });
+  try {
+    const jwtAuth = await curUser(req.body.user, process.env.JWT_SECRET);
+    const { id, nickname, age, gender } = jwtAuth;
+    res.json({
+      id,
+      nickname,
+      age,
+      gender,
+    });
+  } catch (e) {
+    res.status(500).send("err");
+  }
 });
 
 //사용자 정보 수정하기

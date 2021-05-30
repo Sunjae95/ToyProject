@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { API_ENDPOINT } from 'Utility/config';
 import { requestPOST } from 'Api/index';
 import Modal from '../Modal/Modal';
 import Profile from './Profile/Profile';
+import { isLoggedContext } from '../../Context';
+import { LOGOUT } from '../../Context/actionType';
 
 function Mypage() {
   const [profile, setProfile] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalCheck, setModalCheck] = useState(true);
-  //유저 데이터 불러오기
+  const { dispatch } = useContext(isLoggedContext);
+  //MyPage 특성상 첫화면은 유저 정보가 있어야된다. 그렇기에 유저 정보를 불러온다.
   useEffect(async () => {
     try {
       //성공시 유저 정보 profile에 저장
@@ -17,11 +20,11 @@ function Mypage() {
       });
       const user = await data.json();
       const { id, nickname, age, gender } = user;
-
       setProfile({ id, nickname, age, gender });
     } catch (e) {
-      //다시 로그인페이지 보여주기 (미구현)
+      //실패시 LOGOUT으로 타입을 바꿔줌
       setProfile(false);
+      dispatch({ type: LOGOUT });
     }
   }, []);
 
@@ -66,6 +69,7 @@ function Mypage() {
     setProfile(false);
     setModal(!modal);
     localStorage.removeItem('user');
+    dispatch({ type: LOGOUT });
   };
   //로그아웃 칸 누를때 모달창 띄우기
   const clickedLogout = () => {
