@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/auth", async (req, res) => {
-  const { authCode } = req.body;
+  const { authCode } = JSON.parse(req.body.body);
 
   const bodyData = {
     grant_type: "authorization_code",

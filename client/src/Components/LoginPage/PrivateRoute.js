@@ -11,21 +11,21 @@ function PrivateRoute({ component: Component, ...rest }) {
     state: { isLogged },
     dispatch
   } = useContext(isLoggedContext);
-
+  //매번실행시 유저 정보확인
   useEffect(async () => {
-    //유저 현재 유저 불러오기
-    requestPOST(`${API_ENDPOINT}/user`, {
-      user: localStorage.getItem('user')
-    })
-      //성공하면 LOGIN
-      .then(res => {
-        dispatch({ type: LOGIN });
-      })
-      //실패하면 LOGOUT
-      .catch(e => {
-        dispatch({ type: LOGOUT });
+    console.log('fsd');
+    try {
+      const tmp = await requestPOST(`${API_ENDPOINT}/user`, {
+        user: localStorage.getItem('user')
       });
-  }, []);
+      console.log(tmp);
+      console.log('private O');
+      dispatch({ type: LOGIN });
+    } catch (e) {
+      console.log('private X');
+      dispatch({ type: LOGOUT });
+    }
+  }, [Component]);
 
   //로그인 유무에 따른 조건부 렌더링
   return (
