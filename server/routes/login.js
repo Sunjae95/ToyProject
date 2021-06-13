@@ -4,7 +4,6 @@ const {
   getAccessToken,
   getIdFromKakao,
   getJWT,
-  curUser,
 } = require("../middleware/auth");
 
 router.get("/", (req, res) => {

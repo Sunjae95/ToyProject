@@ -73,8 +73,8 @@ const saveUser = async (id, access_token) => {
 //jwt토큰 인증하고 id를 통해 현재 유저 정보 불러오기(id, nickname)
 const curUser = async (token, password) => {
   try {
+    // console.log("token", token);
     const jwtAuth = await jwt.verify(token, password);
-    // console.log(jwtAuth);
     const id = jwtAuth.id;
     const response = await db.query(
       "SELECT id, nickname, age, gender FROM users WHERE id = ?",
@@ -83,7 +83,7 @@ const curUser = async (token, password) => {
     console.log("토큰인증성공");
     return response[0][0];
   } catch (e) {
-    console.log("토큰인증실패");
+    console.log("토큰인증실패", e);
     //인증이 안됨 ex 시간초과
     throw e;
   }
