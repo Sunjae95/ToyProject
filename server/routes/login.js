@@ -7,9 +7,9 @@ const {
 } = require("../middleware/auth");
 
 router.get("/", (req, res) => {
-  const loginURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REST_API_KEY}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code`;
+  const url = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REST_API_KEY}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code`;
   res.json({
-    url: loginURL,
+    url,
   });
 });
 
