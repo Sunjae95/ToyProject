@@ -1,10 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {
-  getAccessToken,
-  getIdFromKakao,
-  getJWT,
-} = require("../middleware/auth");
+const { getAccessToken, getKakaoId, getJWT } = require("../middleware/auth");
 
 router.get("/", (req, res) => {
   const url = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REST_API_KEY}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code`;
@@ -15,7 +11,6 @@ router.get("/", (req, res) => {
 
 router.post("/auth", async (req, res) => {
   const { authCode } = JSON.parse(req.body.body);
-
   const bodyData = {
     grant_type: "authorization_code",
     client_id: process.env.REST_API_KEY,
@@ -24,9 +19,8 @@ router.post("/auth", async (req, res) => {
   };
 
   const accessToken = await getAccessToken(process.env.KAKAO_URL, bodyData);
-  const id = await getIdFromKakao(accessToken);
-  //user를 받으면 id 찾기 없으면 유저 저장
-  const jwtToken = await getJWT(id, accessToken);
+  const kakaoId = await getKakaoId(accessToken);
+  const jwtToken = await getJWT(kakaoId);
 
   res.json({ user: jwtToken });
 });
