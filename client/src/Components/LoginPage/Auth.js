@@ -1,28 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { API_ENDPOINT } from 'Utility/config';
 import axios from 'axios';
+import { isLoggedContext } from '../../Context';
+import { LOGIN } from '../../Context/actionType';
 
 function Auth() {
+  //context API 도입중... 여기서부터 시작
+  const { isLogged, dispatch } = useContext(isLoggedContext);
+
   useEffect(async () => {
-    try {
-      const authCode = location.search.slice(6);
-      const bodyData = { authCode };
-      const getToken = await axios.post(`${API_ENDPOINT}/login/auth`, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(bodyData),
-        withCredentials: true
-      });
-      
-      localStorage.setItem('user', getToken.data.user);
-    } catch {
-      console.log('Auth: ', console.log(e));
-    }
+    const authCode = { authCode: location.search.slice(6) };
+    const url = `${API_ENDPOINT}/login/auth`;
+    const data = {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(authCode),
+      withCredentials: true
+    };
+    const getToken = await axios.post(url, data);
+
+    localStorage.setItem('user', getToken.data.user);
+    dispatch({ type: LOGIN });
   }, []);
-  return <div>auth</div>;
-  // return <Redirect to="/" />;
+
+  if (isLogged) return <Redirect to="/" />;
+  return <div>로그인중..</div>;
 }
 
 export default Auth;

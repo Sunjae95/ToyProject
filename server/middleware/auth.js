@@ -51,8 +51,9 @@ const getJWT = async (id) => {
 const saveUser = async (id) => {
   const checkUser = await db.query("SELECT id FROM users WHERE id = ?", [id]);
 
-  if (checkUser[0].length === 0)
+  if (checkUser[0].length === 0) {
     db.query("INSERT INTO users(id) VALUES (?)", [id]);
+  }
 };
 
 //jwt토큰 인증하고 id를 통해 현재 유저 정보 불러오기(id, nickname)

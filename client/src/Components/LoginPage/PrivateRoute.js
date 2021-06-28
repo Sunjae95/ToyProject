@@ -36,16 +36,16 @@ function PrivateRoute({ component: Component, ...rest }) {
       dispatch({ type: LOGOUT });
     }
   }, [Component]);
-  if(a)
-  //로그인 유무에 따른 조건부 렌더링
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        isLogged ? <Component {...props} /> : <Redirect to="/login" />
-      }
-    />
-  );
+  if (a)
+    //로그인 유무에 따른 조건부 렌더링
+    return (
+      <Route
+        {...rest}
+        render={props =>
+          isLogged ? <Component {...props} /> : <Redirect to="/login" />
+        }
+      />
+    );
 }
 
 export default PrivateRoute;
