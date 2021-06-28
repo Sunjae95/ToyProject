@@ -1,16 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { API_ENDPOINT } from 'Utility/config';
-import { isLoggedContext } from '../../Context';
-import { LOGIN } from '../../Context/actionType';
 import axios from 'axios';
 
 function Auth() {
-  const {
-    state: { isLogged },
-    dispatch
-  } = useContext(isLoggedContext);
-
   useEffect(async () => {
     try {
       const authCode = location.search.slice(6);
@@ -22,19 +15,14 @@ function Auth() {
         body: JSON.stringify(bodyData),
         withCredentials: true
       });
-
+      
       localStorage.setItem('user', getToken.data.user);
-      dispatch({ type: LOGIN });
     } catch {
       console.log('Auth: ', console.log(e));
     }
   }, []);
-
-  if (isLogged) {
-    return <Redirect to="/" />;
-  } else {
-    return <div>인증오류!!</div>;
-  }
+  return <div>auth</div>;
+  // return <Redirect to="/" />;
 }
 
 export default Auth;
