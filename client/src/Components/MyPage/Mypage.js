@@ -5,6 +5,7 @@ import Modal from '../Modal/Modal';
 import Profile from './Profile/Profile';
 import { isLoggedContext } from '../../Context';
 import { LOGOUT } from '../../Context/actionType';
+import axios from 'axios';
 
 function Mypage() {
   const [profile, setProfile] = useState(false);
@@ -15,11 +16,29 @@ function Mypage() {
   useEffect(async () => {
     try {
       //성공시 유저 정보 profile에 저장
-      const data = await requestPOST(`${API_ENDPOINT}/user`, {
-        user: localStorage.getItem('user')
+      // const data = await requestPOST(`${API_ENDPOINT}/user`, {
+      //   user: localStorage.getItem('user')
+      // });
+      // const user = await axios.post(`${API_ENDPOINT}/user`,{
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   auth: { user: localStorage.getItem('user') },
+      //   // body: ,
+      //   withCredentials: true
+      // });
+      const user = await axios({
+        url: `${API_ENDPOINT}/user`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        auth: { user: localStorage.getItem('user') },
+        withCredentials: true
       });
-      const user = await data.json();
-      const { id, nickname, age, gender } = user;
+      // console.log();
+      // const user = await data.json();
+      const { id, nickname, age, gender } = user.data;
       setProfile({ id, nickname, age, gender });
     } catch (e) {
       //실패시 LOGOUT으로 타입을 바꿔줌

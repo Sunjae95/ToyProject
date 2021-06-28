@@ -1,24 +1,24 @@
 import React, { useReducer } from 'react';
 import { LOGIN, LOGOUT } from './actionType';
 
-const initailState = { isLogged: false };
+const initailState = false;
 
 const isLoggedContext = React.createContext(initailState);
 
 const reducer = (state = initailState, action) => {
   switch (action.type) {
     case LOGIN:
-      return { isLogged: true };
+      return true;
     case LOGOUT:
-      return { isLogged: false };
+      return false;
     default:
       return state;
   }
 };
 
 const Provider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initailState);
-  const value = { state, dispatch };
+  const [isLogged, dispatch] = useReducer(reducer, initailState);
+  const value = { isLogged, dispatch };
   return (
     <isLoggedContext.Provider value={value}>
       {children}

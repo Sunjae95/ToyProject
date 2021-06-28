@@ -1,36 +1,32 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { API_ENDPOINT } from 'Utility/config';
-import { requestPOST } from 'Api/index';
+import axios from 'axios';
 import { isLoggedContext } from '../../Context';
 import { LOGIN } from '../../Context/actionType';
 
 function Auth() {
-  const {
-    state: { isLogged },
-    dispatch
-  } = useContext(isLoggedContext);
-  console.log(isLogged);
+  //context API 도입중... 여기서부터 시작
+  const { isLogged, dispatch } = useContext(isLoggedContext);
 
   useEffect(async () => {
-    try {
-      const authCode = location.search.slice(6);
-      const bodyData = { authCode };
-      const tmp = await requestPOST(`${API_ENDPOINT}/login/auth`, bodyData);
-      const data = await tmp.json();
-      //로그인 상태로 바꿔줌
-      dispatch({ type: LOGIN });
-      localStorage.setItem('user', data.user);
-    } catch {
-      console.log('Auth: ', console.log(e));
-    }
+    const authCode = { authCode: location.search.slice(6) };
+    const url = `${API_ENDPOINT}/login/auth`;
+    const data = {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(authCode),
+      withCredentials: true
+    };
+    const getToken = await axios.post(url, data);
+
+    localStorage.setItem('user', getToken.data.user);
+    dispatch({ type: LOGIN });
   }, []);
-  
-  if (isLogged) {
-    return <Redirect to="/" />;
-  } else {
-    return <div>인증오류!!</div>;
-  }
+
+  if (isLogged) return <Redirect to="/" />;
+  return <div>로그인중..</div>;
 }
 
 export default Auth;
