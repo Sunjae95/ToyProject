@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NavBar from './Components/NavBar/NavBar';
 import LoginPage from './Components/LoginPage/LoginPage';
@@ -8,14 +8,37 @@ import ProblemPage from './Components/ProblemPage/ProblemPage';
 import RankingPage from './Components/RankPage/RankingPage';
 import HomePage from './Components/HomePage/HomePage';
 import './App.css';
-import { Provider } from './Context';
+import { isLoggedContext, Provider } from './Context';
 import PrivateRoute from './Components/LoginPage/PrivateRoute';
+import { requestPOST } from './api';
+import { API_ENDPOINT } from './utils/config';
 
 function App() {
+  // const {
+  //   state: { isLogged },
+  //   dispatch
+  // } = useContext(isLoggedContext);
+  console.log(useContext(isLoggedContext));
+
+  useEffect(() => {
+    //유저 현재 유저 불러오기
+    requestPOST(`${API_ENDPOINT}/user`, {
+      user: localStorage.getItem('user')
+    })
+      .then(res => {
+        console.log('성공');
+        dispatch({ type: LOGIN });
+      })
+      .catch(e => {
+        console.log('실패');
+        dispatch({ type: LOGOUT });
+      });
+  }, []);
+
   return (
-    <div className="Main">
-      <NavBar />
-      <Provider>
+    <Provider>
+      <div className="Main">
+        <NavBar />
         <div className="MainPageContent">
           <Switch>
             <Route path="/login" component={LoginPage} />
@@ -26,8 +49,8 @@ function App() {
             <Route exact path="/" component={HomePage} />
           </Switch>
         </div>
-      </Provider>
-    </div>
+      </div>
+    </Provider>
   );
 }
 

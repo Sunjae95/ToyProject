@@ -3,7 +3,7 @@ import { LOGIN, LOGOUT } from './actionType';
 
 const initailState = { isLogged: false };
 
-const isLoggedContext = React.createContext();
+const isLoggedContext = React.createContext(initailState);
 
 const reducer = (state = initailState, action) => {
   switch (action.type) {

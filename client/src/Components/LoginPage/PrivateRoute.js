@@ -12,20 +12,20 @@ function PrivateRoute({ component: Component, ...rest }) {
     dispatch
   } = useContext(isLoggedContext);
 
-  useEffect(async () => {
-    //유저 현재 유저 불러오기
-    requestPOST(`${API_ENDPOINT}/user`, {
-      user: localStorage.getItem('user')
-    })
-      //성공하면 LOGIN
-      .then(res => {
-        dispatch({ type: LOGIN });
-      })
-      //실패하면 LOGOUT
-      .catch(e => {
-        dispatch({ type: LOGOUT });
-      });
-  }, []);
+  // useEffect(() => {
+  //   //유저 현재 유저 불러오기
+  //   requestPOST(`${API_ENDPOINT}/user`, {
+  //     user: localStorage.getItem('user')
+  //   })
+  //     //성공하면 LOGIN
+  //     .then(res => {
+  //       dispatch({ type: LOGIN });
+  //     })
+  //     //실패하면 LOGOUT
+  //     .catch(e => {
+  //       dispatch({ type: LOGOUT });
+  //     });
+  // }, []);
 
   //로그인 유무에 따른 조건부 렌더링
   return (
