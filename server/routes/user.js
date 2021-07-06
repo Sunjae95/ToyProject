@@ -5,15 +5,10 @@ const router = express.Router();
 
 //사용자 정보 불러오기
 router.post("/", async (req, res) => {
-  //jwt 인증
-  console.log(req.get());
-  // console.log(req.body.body); //미리안받아주면 오류나옴
-  // const token = await req.body.body.user;
   try {
     const jwtAuth = await curUser(req.body.user, process.env.JWT_SECRET);
     const { id, nickname, age, gender } = jwtAuth;
 
-    console.log("jwt인증");
     res.json({
       id,
       nickname,

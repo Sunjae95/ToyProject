@@ -35,6 +35,7 @@ const getKakaoId = async (accessToken) => {
 
 //JWT토큰 생성
 const getJWT = async (id) => {
+  console.log("사용자id", id);
   const payload = {
     id: id,
     exp: Math.floor(Date.now() / 1000) + 60 * 60,
@@ -43,7 +44,7 @@ const getJWT = async (id) => {
   saveUser(id);
 
   const jwtToken = jwt.sign(payload, process.env.JWT_SECRET);
-
+  console.log("jwtToken", jwtToken);
   return jwtToken;
 };
 
@@ -56,21 +57,25 @@ const saveUser = async (id) => {
   }
 };
 
+const checkUser = (token, password) => {
+  const isChecked = jwt.verify(token, password);
+  if (isChecked) return true;
+  return false;
+};
+
 //jwt토큰 인증하고 id를 통해 현재 유저 정보 불러오기(id, nickname)
 const curUser = async (token, password) => {
   try {
-    // console.log("token", token);
-    const jwtAuth = await jwt.verify(token, password);
+    const jwtAuth = jwt.verify(token, password);
     const id = jwtAuth.id;
     const response = await db.query(
       "SELECT id, nickname, age, gender FROM users WHERE id = ?",
       [id]
     );
-    console.log("토큰인증성공");
+
     return response[0][0];
   } catch (e) {
     console.log("토큰인증실패", e);
-    //인증이 안됨 ex 시간초과
     throw e;
   }
 };
@@ -104,6 +109,7 @@ module.exports = {
   getKakaoId,
   saveUser,
   getJWT,
+  checkUser,
   curUser,
   getAccessTokenFromDB,
   modifyNickname,

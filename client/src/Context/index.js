@@ -1,16 +1,16 @@
 import React, { useReducer } from 'react';
 import { LOGIN, LOGOUT } from './actionType';
 
-const initailState = false;
+const initailState = { isLogged: false };
 
 const isLoggedContext = React.createContext(initailState);
 
-const reducer = (state = initailState, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case LOGIN:
-      return true;
+      return { isLogged: true };
     case LOGOUT:
-      return false;
+      return { isLogged: false };
     default:
       return state;
   }

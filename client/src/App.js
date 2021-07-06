@@ -14,25 +14,21 @@ import { requestPOST } from './api';
 import { API_ENDPOINT } from './utils/config';
 
 function App() {
-  // const {
-  //   state: { isLogged },
-  //   dispatch
-  // } = useContext(isLoggedContext);
-  console.log(useContext(isLoggedContext));
-
+  const { isLogged, dispatch } = useContext(isLoggedContext);
+  console.log(isLogged);
   useEffect(() => {
     //유저 현재 유저 불러오기
-    requestPOST(`${API_ENDPOINT}/user`, {
-      user: localStorage.getItem('user')
-    })
-      .then(res => {
-        console.log('성공');
-        dispatch({ type: LOGIN });
-      })
-      .catch(e => {
-        console.log('실패');
-        dispatch({ type: LOGOUT });
-      });
+    // requestPOST(`${API_ENDPOINT}/user`, {
+    //   user: localStorage.getItem('user')
+    // })
+    //   .then(res => {
+    //     console.log('성공');
+    //     dispatch({ type: LOGIN });
+    //   })
+    //   .catch(e => {
+    //     console.log('실패');
+    //     dispatch({ type: LOGOUT });
+    //   });
   }, []);
 
   return (

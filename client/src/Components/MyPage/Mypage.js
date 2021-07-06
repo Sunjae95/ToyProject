@@ -15,29 +15,16 @@ function Mypage() {
   //MyPage 특성상 첫화면은 유저 정보가 있어야된다. 그렇기에 유저 정보를 불러온다.
   useEffect(async () => {
     try {
-      //성공시 유저 정보 profile에 저장
-      // const data = await requestPOST(`${API_ENDPOINT}/user`, {
-      //   user: localStorage.getItem('user')
-      // });
-      // const user = await axios.post(`${API_ENDPOINT}/user`,{
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   auth: { user: localStorage.getItem('user') },
-      //   // body: ,
-      //   withCredentials: true
-      // });
       const user = await axios({
         url: `${API_ENDPOINT}/user`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        auth: { user: localStorage.getItem('user') },
+        data: { user: localStorage.getItem('user') },
         withCredentials: true
       });
-      // console.log();
-      // const user = await data.json();
+
       const { id, nickname, age, gender } = user.data;
       setProfile({ id, nickname, age, gender });
     } catch (e) {
