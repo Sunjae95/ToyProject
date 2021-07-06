@@ -30,11 +30,11 @@ router.post("/auth", async (req, res) => {
 
   res.json({ user: jwtToken });
 });
-
+//return을 안해주면 오류가 남
 router.post("/checkLogin", (req, res) => {
   const isChecked = checkUser(req.body.user, process.env.JWT_SECRET);
-  if (isChecked) res.json({ isChecked: true });
-  res.json({ isChecked: true });
+  if (isChecked) return res.json({ isChecked: true });
+  return res.json({ isChecked: true });
 });
 
 module.exports = router;

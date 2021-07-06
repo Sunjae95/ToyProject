@@ -16,15 +16,14 @@ function ProblemList({ problems }) {
     <div
       style={{
         height: '300px',
-
         boxSizing: 'border-box'
       }}
     >
       {problems &&
-        problems.map(problem => {
+        [...problems].map((problem, index) => {
           return (
             <Problem
-              key={problem.no}
+              key={index}
               no={problem.no}
               grade={problem.grade}
               title={problem.title}
@@ -36,7 +35,7 @@ function ProblemList({ problems }) {
 }
 
 Problem.propTypes = {
-  no: PropTypes.number,
+  no: PropTypes.string,
   grade: PropTypes.string,
   title: PropTypes.string
 };

@@ -59,7 +59,7 @@ const saveUser = async (id) => {
 
 const checkUser = (token, password) => {
   const isChecked = jwt.verify(token, password);
-  if (isChecked) return true;
+  if (isChecked) return isChecked.id;
   return false;
 };
 
