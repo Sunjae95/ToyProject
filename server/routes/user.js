@@ -23,13 +23,9 @@ router.post("/", async (req, res) => {
 //사용자 정보 수정하기
 router.post("/modify", async (req, res) => {
   const { id, nickname, age, gender } = req.body;
-  console.log(typeof id);
-  console.log(typeof nickname);
-  console.log(typeof age);
-  console.log(typeof gender);
+
   const getAnswer = await modifyNickname(id, nickname, age, gender);
   if (getAnswer) {
-    //성공시
     res.status(200).json({ modify: true });
   } else {
     //실패시

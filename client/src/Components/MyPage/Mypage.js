@@ -50,12 +50,23 @@ function Mypage() {
 
   //데이터 수정하기
   const onSave = () => {
-    requestPOST('http://localhost:5000/api/user/modify', {
+    const modifyData = {
       id: profile.id,
       nickname: profile.nickname,
       age: profile.age,
       gender: profile.gender
-    }).catch(e => console.log(e));
+    };
+
+    axios({
+      url: `${API_ENDPOINT}/user/modify`,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: modifyData,
+      withCredentials: true
+    });
+
     setModal(!modal);
   };
 
