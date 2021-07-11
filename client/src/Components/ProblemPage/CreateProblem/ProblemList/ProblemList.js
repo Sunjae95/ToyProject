@@ -9,16 +9,11 @@ function Problem({ no, grade, title }) {
     setCard(!card);
   };
 
-  if (!card)
-    return (
-      <div className={'problemItem'} onClick={onFilp}>
-        뒷면
-      </div>
-    );
+  if (!card) return <div className="backProblemItem" onClick={onFilp}></div>;
 
   return (
     <>
-      <div className="problemItem" onClick={onFilp}>
+      <div className="frontProblemItem" onClick={onFilp}>
         <p>문제제목: {title}</p>
         <p>문제번호: {no}</p>
         <p>문제등급: {grade}</p>

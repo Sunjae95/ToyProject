@@ -3,3 +3,18 @@
     border-radius: 1em;
 }
 
+.frontProblemItem{
+    border: 1px solid #BDBDBD;
+    width: 250px;
+    height: 200px;
+    border-radius: 1em;
+}
+.backProblemItem{
+    border: 1px solid #BDBDBD;
+    border-radius: 1em;
+    width: 250px;
+    height: 200px;
+    background-size: 250px 200px;
+    background-repeat: no-repeat;
+    background-image: url(../../../Images/problem_back.jpg);
+}
