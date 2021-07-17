@@ -1,30 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import '../CreationPage.css';
+
+function Front() {
+  return <div className="problemFront"></div>;
+}
+
+function Back({ no, grade, title }) {
+  return (
+    <div className="problemBack">
+      <p>문제제목: {title}</p>
+      <p>문제번호: {no}</p>
+      <p>문제등급: {grade}</p>
+    </div>
+  );
+}
 
 function Problem({ no, grade, title }) {
+  const [isFliped, setIsFliped] = useState(false);
+
+  const onFilp = () => {
+    setIsFliped(!isFliped);
+  };
+
   return (
-    <div>
-      문제번호: {no}
-      문제등급: {grade}
-      문제제목: {title}
-    </div>
+    <>
+      <div
+        className={'problemContainer' + (isFliped ? ' fliped' : '')}
+        onClick={onFilp}
+      >
+        <Back no={no} grade={grade} title={title} />
+        <Front />
+      </div>
+    </>
   );
 }
 
 function ProblemList({ problems }) {
   return (
-    <div
-      style={{
-        height: '300px',
-
-        boxSizing: 'border-box'
-      }}
-    >
+    <div className="problemList">
       {problems &&
-        problems.map(problem => {
+        [...problems].map((problem, index) => {
           return (
             <Problem
-              key={problem.no}
+              key={index}
               no={problem.no}
               grade={problem.grade}
               title={problem.title}
@@ -36,7 +55,7 @@ function ProblemList({ problems }) {
 }
 
 Problem.propTypes = {
-  no: PropTypes.number,
+  no: PropTypes.string,
   grade: PropTypes.string,
   title: PropTypes.string
 };
