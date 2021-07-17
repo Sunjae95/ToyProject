@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { requestGET } from 'Api/index';
 import { API_ENDPOINT } from 'Utility/config';
 import ProblemList from './ProblemList/ProblemList';
+import CreationPageHead from './CreationPageHead';
 import axios from 'axios';
 function CreationPage() {
   const [problems, setProblems] = useState(null);
@@ -26,7 +27,7 @@ function CreationPage() {
 
   return (
     <>
-      <div onClick={getProblems}>뽑기 버튼</div>
+      <CreationPageHead getProblems={getProblems} />
       <ProblemList problems={problems} />
     </>
   );

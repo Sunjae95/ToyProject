@@ -1,20 +1,43 @@
-.problemItem {
-    border: 1px solid #BDBDBD;
-    border-radius: 1em;
+.problemPageHead{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 20%;
 }
 
-.frontProblemItem{
-    border: 1px solid #BDBDBD;
+.problemList{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+
+.problemContainer {
     width: 250px;
     height: 200px;
-    border-radius: 1em;
+    background-color: white;
+    position: relative;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
 }
-.backProblemItem{
+
+.problemContainer.fliped{
+    transform: rotateY(180deg);
+}
+
+.problemFront, .problemBack {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     border: 1px solid #BDBDBD;
     border-radius: 1em;
-    width: 250px;
-    height: 200px;
-    background-size: 250px 200px;
-    background-repeat: no-repeat;
-    background-image: url(../../../Images/problem_back.jpg);
+    box-sizing: border-box;
+    background-color: white;
+    backface-visibility: hidden;
 }
+
+.problemBack {
+    transform: rotateY(180deg);
+}
+ 

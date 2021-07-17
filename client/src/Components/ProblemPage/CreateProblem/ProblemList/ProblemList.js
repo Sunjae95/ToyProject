@@ -2,21 +2,35 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../CreationPage.css';
 
+function Front() {
+  return <div className="problemFront"></div>;
+}
+
+function Back({ no, grade, title }) {
+  return (
+    <div className="problemBack">
+      <p>문제제목: {title}</p>
+      <p>문제번호: {no}</p>
+      <p>문제등급: {grade}</p>
+    </div>
+  );
+}
+
 function Problem({ no, grade, title }) {
-  const [card, setCard] = useState(false);
+  const [isFliped, setIsFliped] = useState(false);
 
   const onFilp = () => {
-    setCard(!card);
+    setIsFliped(!isFliped);
   };
-
-  if (!card) return <div className="backProblemItem" onClick={onFilp}></div>;
 
   return (
     <>
-      <div className="frontProblemItem" onClick={onFilp}>
-        <p>문제제목: {title}</p>
-        <p>문제번호: {no}</p>
-        <p>문제등급: {grade}</p>
+      <div
+        className={'problemContainer' + (isFliped ? ' fliped' : '')}
+        onClick={onFilp}
+      >
+        <Back no={no} grade={grade} title={title} />
+        <Front />
       </div>
     </>
   );
@@ -24,7 +38,7 @@ function Problem({ no, grade, title }) {
 
 function ProblemList({ problems }) {
   return (
-    <div>
+    <div className="problemList">
       {problems &&
         [...problems].map((problem, index) => {
           return (
